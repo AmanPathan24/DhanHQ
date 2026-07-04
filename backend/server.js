@@ -5,9 +5,14 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const { getMarketQuotes } = require('./controllers/marketController');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// API Routes
+app.get('/api/market/quotes', getMarketQuotes);
 
 // API Status Route
 app.get('/api/status', (req, res) => {
