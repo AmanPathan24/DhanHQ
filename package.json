@@ -1,0 +1,10 @@
+{
+  "name": "market-data-dashboard",
+  "version": "1.0.0",
+  "description": "Real-Time Market Data Dashboard using Dhan/Fyers API",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend"
+  }
+}
