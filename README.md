@@ -4,6 +4,22 @@ MarketPulse is a full-stack real-time market data tracker that displays NIFTY Sp
 
 ---
 
+## Screenshots
+
+### 1. Live Feed Dashboard (Dhan API Active)
+![Live Feed Dashboard](frontend/src/assets/API%20Live%20Dashboard.png)
+
+### 2. Sandbox Mode (Dynamic Simulation Ticking)
+![Sandbox Mode](frontend/src/assets/No%20API%20Sandbox%20Mode.png)
+
+### 3. Glassmorphic Dark Mode
+![Glassmorphic Dark Mode](frontend/src/assets/DarkMode%20UI.png)
+
+### 4. Exported Excel Data
+![Exported Excel Data](frontend/src/assets/Exported_Excel.png)
+
+---
+
 ## Tech Stack
 
 - **Frontend**: React.js (Vite), React Router, Lucide Icons, Vanilla CSS.
@@ -69,9 +85,9 @@ Open `http://localhost:5173` to see the live ticking dashboard.
 
 | Feature | Status | Implementation Justification |
 | :--- | :--- | :--- |
-| **Real-Time Data** | `[x]` | Live tracking of NIFTY Spot, NIFTY Futures, OHLC values, Volume, VWAP, and Advances/Declines/Unchanged breadth counts. |
-| **Sandbox Simulation** | `[x]` | Built an in-memory random walk simulator that provides ticking prices when offline or outside trading hours. |
-| **Dhan API Proxy** | `[x]` | Bypasses browser CORS restrictions by calling Dhan APIs through the Express proxy server. |
-| **Error Handling** | `[x]` | Implements graceful controller fallbacks. If Dhan connection errors out or credentials are empty, it switches to Sandbox Mode with a UI alert instead of crashing. |
-| **Export Feature** | `[x]` | Generates structured columnar CSV downloads. Automatically formats filenames with timestamp patterns like `Market_Data_YYYY-MM-DD_HH-MM-SS_AM/PM.csv`. |
-| **Glassmorphism UI** | `[x]` | Implemented CSS custom variables with `backdrop-filter: blur(20px)` and vector background blurs. Ticker cards flash green/red on price updates. |
+| **Real-Time Data** | `Done` | Live tracking of NIFTY Spot, NIFTY Futures, OHLC values, Volume, VWAP, and Advances/Declines/Unchanged breadth counts. |
+| **Sandbox Simulation** | `Done` | Built an in-memory random walk simulator that provides ticking prices when offline or outside trading hours. |
+| **Dhan API Proxy** | `Done` | Bypasses browser CORS restrictions by calling Dhan APIs through the Express proxy server. |
+| **Error Handling** | `Done` | Implements graceful controller fallbacks. If Dhan connection errors out or credentials are empty, it switches to Sandbox Mode with a UI alert instead of crashing. |
+| **Export Feature** | `Done` | Generates structured columnar CSV downloads. Automatically formats filenames with timestamp patterns like `Market_Data_YYYY-MM-DD_HH-MM-SS_AM/PM.csv`. |
+| **Glassmorphism UI** | `Done` | Implemented CSS custom variables with `backdrop-filter: blur(20px)` and vector background blurs. Ticker cards flash green/red on price updates. |
