@@ -123,41 +123,59 @@ const Dashboard = () => {
     });
   };
 
-  // Export CSV Helper (Will connect to Stage 4 export logic)
+  // Export CSV Helper
   const handleExport = () => {
     if (!data) return;
 
     const timestamp = new Date(data.lastUpdated);
     const dateFormatted = timestamp.toISOString().split('T')[0];
     
-    // Time formatting with AM/PM
-    const timeFormatted = timestamp.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    }).replace(/[\s:]/g, '-');
+    // Custom formatted time with AM/PM (e.g., 04-30-15_PM)
+    let hours = timestamp.getHours();
+    const minutes = String(timestamp.getMinutes()).padStart(2, '0');
+    const seconds = String(timestamp.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const hoursStr = String(hours).padStart(2, '0');
+    const timeFormatted = `${hoursStr}-${minutes}-${seconds}_${ampm}`;
 
     const filename = `Market_Data_${dateFormatted}_${timeFormatted}.csv`;
 
+    // Constructing standard columnar CSV
+    const csvHeaders = [
+      'Date & Time',
+      'NIFTY Spot Price',
+      'NIFTY Futures Price',
+      'Open',
+      'High',
+      'Low',
+      'Close',
+      'Volume',
+      'VWAP',
+      'Market Breadth (Advances/Declines/Unchanged)'
+    ];
+
+    const csvRows = [
+      [
+        timestamp.toLocaleString('en-IN'),
+        data.spotPrice,
+        data.futuresPrice,
+        data.open,
+        data.high,
+        data.low,
+        data.close,
+        data.volume,
+        data.vwap,
+        `Advances: ${data.advances} | Declines: ${data.declines} | Unchanged: ${data.unchanged}`
+      ]
+    ];
+
+    // Combine headers and rows, wrapping cells in quotes to escape comma issues
     const csvContent = [
-      ['Market Data Report', 'Task 2 Real-Time Dashboard'],
-      ['Exported At', timestamp.toLocaleString()],
-      [],
-      ['Metric', 'Value'],
-      ['NIFTY Spot Price', data.spotPrice],
-      ['NIFTY Futures Price', data.futuresPrice],
-      ['Open', data.open],
-      ['High', data.high],
-      ['Low', data.low],
-      ['Close', data.close],
-      ['Volume', data.volume],
-      ['VWAP', data.vwap],
-      ['Advances', data.advances],
-      ['Declines', data.declines],
-      ['Unchanged', data.unchanged],
-      ['Market Breadth Ratio (A/D)', (data.advances / (data.declines || 1)).toFixed(2)]
-    ].map(e => e.join(',')).join('\n');
+      csvHeaders.map(h => `"${h}"`).join(','),
+      ...csvRows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
